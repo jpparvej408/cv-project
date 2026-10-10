@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional CV Maker</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #eef2f7;
+            color: #222;
+        }
+
+        h1 {
+            text-align: center;
+            color: #17365d;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .form-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px #0001;
+            margin-bottom: 25px;
+        }
+
+        .form-box h2 {
+            color: #17365d;
+            border-bottom: 2px solid #17365d;
+            padding-bottom: 8px;
+        }
+
+        label {
+            display: block;
+            margin-top: 14px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 11px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #17365d;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 18px;
+            margin-right: 8px;
+        }
+
+        button:hover {
+            background: #245a91;
+        }
+
+        .cv {
+            background: white;
+            max-width: 800px;
+            margin: auto;
+            padding: 40px;
+            box-shadow: 0 3px 12px #0002;
+            min-height: 1000px;
+            overflow-wrap: anywhere;
+        }
+
+        .cv-header {
+            background: #17365d;
+            color: white;
+            padding: 25px;
+            margin: -40px -40px 25px;
+        }
+
+        .cv-header h1 {
+            color: white;
+            text-align: left;
+            margin: 0 0 10px;
+        }
+
+        .cv-header p {
+            margin: 5px 0;
+        }
+
+        .section {
+            margin-top: 25px;
+        }
+
+        .section h2 {
+            font-size: 19px;
+            color: #17365d;
+            border-bottom: 2px solid #17365d;
+            padding-bottom: 7px;
+            text-transform: uppercase;
+        }
+
+        .section p {
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+
+        .photo {
+            width: 100px;
+            height: 110px;
+            object-fit: cover;
+            border: 2px solid white;
+            float: right;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .form-box, .cv {
+                padding: 20px;
+            }
+
+            .cv-header {
+                margin: -20px -20px 20px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            body * {
+                visibility: hidden;
+            }
+
+            #cv, #cv * {
+                visibility: visible;
+            }
+
+            #cv {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                max-width: none;
+                margin: 0;
+                padding: 30px;
+                box-shadow: none;
+                min-height: auto;
+            }
+
+            .cv-header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            @page {
+                size: A4;
+                margin: 10mm;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Professional CV Maker</h1>
+
+    <div class="form-box">
+        <h2>Personal Information</h2>
+
+        <label>Full Name</label>
+        <input id="name" placeholder="Enter your full name">
+
+        <label>Job Title</label>
+        <input id="job" placeholder="e.g. Web Developer">
+
+        <label>Email</label>
+        <input id="email" type="email" placeholder="example@gmail.com">
+
+        <label>Phone Number</label>
+        <input id="phone" placeholder="+8801XXXXXXXXX">
+
+        <label>Address</label>
+        <input id="address" placeholder="Your address">
+
+        <label>Profile Photo (Optional)</label>
+        <input id="photoInput" type="file" accept="image/*">
+
+        <h2>Career Objective</h2>
+        <textarea id="objective"
+            placeholder="Write your career objective"></textarea>
+
+        <h2>Education</h2>
+        <textarea id="education"
+            placeholder="Degree, Institution, Passing Year, Result"></textarea>
+
+        <h2>Work Experience</h2>
+        <textarea id="experience"
+            placeholder="Job Title, Company, Duration and Responsibilities"></textarea>
+
+        <h2>Skills</h2>
+        <textarea id="skills"
+            placeholder="HTML, CSS, JavaScript, MS Office, Communication"></textarea>
+
+        <h2>Projects (Optional)</h2>
+        <textarea id="projects"
+            placeholder="Project name and description"></textarea>
+
+        <h2>Languages</h2>
+        <textarea id="languages"
+            placeholder="Bangla, English"></textarea>
+
+        <button onclick="generateCV()">Generate CV</button>
+        <button onclick="window.print()">Print / Save PDF</button>
+    </div>
+
+    <div class="cv" id="cv">
+        <div class="cv-header">
+            <img id="cvPhoto" class="photo" alt="Profile photo">
+            <h1 id="cvName">Your Name</h1>
+            <p id="cvJob">Your Professional Title</p>
+            <p id="cvContact">Email | Phone | Address</p>
+        </div>
+
+        <div class="section">
+            <h2>Career Objective</h2>
+            <p id="cvObjective">Your career objective will appear here.</p>
+        </div>
+
+        <div class="section">
+            <h2>Education</h2>
+            <p id="cvEducation">Your educational qualifications.</p>
+        </div>
+
+        <div class="section">
+            <h2>Work Experience</h2>
+            <p id="cvExperience">Your work experience.</p>
+        </div>
+
+        <div class="section">
+            <h2>Skills</h2>
+            <p id="cvSkills">Your skills.</p>
+        </div>
+
+        <div class="section">
+            <h2>Projects</h2>
+            <p id="cvProjects">Your projects.</p>
+        </div>
+
+        <div class="section">
+            <h2>Languages</h2>
+            <p id="cvLanguages">Your languages.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function getValue(id, fallback) {
+        const value = document.getElementById(id).value.trim();
+        return value || fallback;
+    }
+
+    function setText(id, value) {
+        document.getElementById(id).textContent = value;
+    }
+
+    function generateCV() {
+        setText("cvName", getValue("name", "Your Name"));
+        setText("cvJob", getValue("job", "Your Professional Title"));
+
+        const email = getValue("email", "Email");
+        const phone = getValue("phone", "Phone");
+        const address = getValue("address", "Address");
+
+        setText("cvContact", email + " | " + phone + " | " + address);
+
+        setText("cvObjective",
+            getValue("objective", "Write your career objective here."));
+
+        setText("cvEducation",
+            getValue("education", "Add your educational qualifications."));
+
+        setText("cvExperience",
+            getValue("experience", "Add your work experience."));
+
+        setText("cvSkills",
+            getValue("skills", "Add your skills."));
+
+        setText("cvProjects",
+            getValue("projects", "No projects added."));
+
+        setText("cvLanguages",
+            getValue("languages", "Add your languages."));
+    }
+
+    document.getElementById("photoInput").addEventListener("change", function() {
+        const file = this.files[0];
+
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            alert("Please select an image file.");
+            this.value = "";
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+            const photo = document.getElementById("cvPhoto");
+            photo.src = event.target.result;
+            photo.style.display = "block";
+        };
+
+        reader.readAsDataURL(file);
+    });
+
+    generateCV();
+</script>
+
+</body>
+</html>
